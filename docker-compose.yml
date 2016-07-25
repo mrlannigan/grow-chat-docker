@@ -1,0 +1,50 @@
+version: '2'
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - back-tier
+
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+    networks:
+      - back-tier
+
+  chat:
+    build: ./node_modules/grow-chat-service
+    ports:
+      - "5000"
+    volumes:
+      - ./node_modules/grow-chat-service:/code
+    depends_on:
+      - redis
+      - elasticsearch
+    links:
+      - redis
+      - elasticsearch
+    networks:
+      - front-tier
+      - back-tier
+
+  lb:
+    image: dockercloud/haproxy
+    ports:
+      - 80:80
+      - 1936
+    links:
+      - chat
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
