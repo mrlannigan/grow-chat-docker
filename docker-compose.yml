@@ -55,6 +55,7 @@ services:
       - "1936"
     links:
       - chat
+      - web
     networks:
       - front-tier
       - back-tier
