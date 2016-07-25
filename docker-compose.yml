@@ -32,6 +32,22 @@ services:
       - front-tier
       - back-tier
 
+  web:
+    build: ./node_modules/grow-web-service
+    ports:
+      - "5000"
+    volumes:
+      - ./node_modules/grow-web-service:/code
+    depends_on:
+      - redis
+      - elasticsearch
+    links:
+      - redis
+      - elasticsearch
+    networks:
+      - front-tier
+      - back-tier
+
   lb:
     image: dockercloud/haproxy
     ports:
