@@ -5,6 +5,7 @@
 * If using `docker-compose`
   * python
   * pip
+  * nodejs with npm
   * docker
   * docker-composer
   * docker-machine (recommended)
