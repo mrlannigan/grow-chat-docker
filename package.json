@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mrlannigan/grow-chat-docker#readme",
   "dependencies": {
-    "grow-chat-service": "git+https://github.com/mrlannigan/grow-chat-service.git"
+    "grow-chat-service": "git+https://github.com/mrlannigan/grow-chat-service.git",
+    "grow-web-service": "git+https://github.com/mrlannigan/grow-web-service.git"
   }
 }
