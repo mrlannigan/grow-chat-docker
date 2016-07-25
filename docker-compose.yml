@@ -36,6 +36,8 @@ services:
     build: ./node_modules/grow-web-service
     ports:
       - "5000"
+    environment:
+      VIRTUAL_HOST: "http://*"
     volumes:
       - ./node_modules/grow-web-service:/code
     depends_on:
@@ -52,10 +54,13 @@ services:
     image: dockercloud/haproxy
     ports:
       - "80:80"
-      - "1936"
+      - "1936:1936"
     links:
-      - chat
       - web
+      - chat
+    depends_on:
+      - web
+      - chat
     networks:
       - front-tier
       - back-tier
