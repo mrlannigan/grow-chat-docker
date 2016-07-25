@@ -1,0 +1,23 @@
+{
+  "name": "grow-chat-docker",
+  "version": "1.0.0",
+  "description": "Chat application for Grow Developer Test",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrlannigan/grow-chat-docker.git"
+  },
+  "author": "Julian Lannigan <julian.lannigan@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrlannigan/grow-chat-docker/issues"
+  },
+  "homepage": "https://github.com/mrlannigan/grow-chat-docker#readme",
+  "dependencies": {
+    "grow-chat-service": "git+https://github.com/mrlannigan/grow-chat-service.git"
+  }
+}
