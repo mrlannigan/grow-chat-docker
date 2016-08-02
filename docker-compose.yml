@@ -45,7 +45,7 @@ services:
     ports:
       - "5000"
     environment:
-      VIRTUAL_HOST: "ws://*, wss://*"
+      VIRTUAL_HOST: "*/socket*, ws://*"
       AUTH_HOST: "auth:28000"
     volumes:
       - ./node_modules/grow-chat-service:/code
