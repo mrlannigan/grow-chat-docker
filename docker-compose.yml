@@ -2,6 +2,7 @@ version: '2'
 services:
   chat_redis:
     image: redis
+    command: redis-server
     ports:
       - "6379"
     networks:
@@ -40,26 +41,6 @@ services:
       - front-tier
       - back-tier
 
-  chat:
-    build: ./node_modules/grow-chat-service
-    ports:
-      - "5000"
-    environment:
-      VIRTUAL_HOST: "*/socket*, ws://*"
-      AUTH_HOST: "auth:28000"
-    volumes:
-      - ./node_modules/grow-chat-service:/code
-    depends_on:
-      - chat_redis
-      - elasticsearch
-    links:
-      - chat_redis
-      - elasticsearch
-      - auth
-    networks:
-      - front-tier
-      - back-tier
-
   web:
     build: ./node_modules/grow-web-service
     ports:
@@ -88,10 +69,8 @@ services:
       - "1936:1936"
     links:
       - web
-      - chat
     depends_on:
       - web
-      - chat
     networks:
       - front-tier
       - back-tier
