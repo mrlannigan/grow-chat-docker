@@ -38,7 +38,7 @@ services:
     ports:
       - "5000"
     environment:
-      VIRTUAL_HOST: "http://*"
+      VIRTUAL_HOST: "http://*,ws://*"
       AUTH_HOST: "auth:28000"
     networks:
       - front-tier
