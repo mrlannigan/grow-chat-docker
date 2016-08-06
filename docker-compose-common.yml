@@ -1,0 +1,66 @@
+version: '2'
+services:
+  chat_redis:
+    image: redis
+    command: redis-server
+    ports:
+      - "6379"
+    networks:
+      - back-tier
+
+  auth_redis:
+    image: redis
+    command: redis-server --appendonly yes
+    ports:
+      - "6379"
+    networks:
+      - back-tier
+    volumes:
+      - auth-redis-data:/data
+
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+    networks:
+      - back-tier
+
+  auth:
+    build: ./node_modules/grow-auth-service
+    ports:
+      - "28000:5000"
+    networks:
+      - front-tier
+      - back-tier
+
+  web:
+    build: ./node_modules/grow-web-service
+    ports:
+      - "5000"
+    environment:
+      VIRTUAL_HOST: "http://*"
+      AUTH_HOST: "auth:28000"
+    networks:
+      - front-tier
+      - back-tier
+
+  lb:
+    image: dockercloud/haproxy
+    ports:
+      - "80:80"
+      - "1936:1936"
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+
+volumes:
+  auth-redis-data:
+    driver: local

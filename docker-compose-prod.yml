@@ -19,8 +19,6 @@ services:
     extends:
       file: docker-compose-common.yml
       service: auth
-    volumes:
-      - ./node_modules/grow-auth-service:/code
     links:
       - auth_redis
       - elasticsearch
@@ -32,8 +30,6 @@ services:
     extends:
       file: docker-compose-common.yml
       service: web
-    volumes:
-      - ./node_modules/grow-web-service:/code
     links:
       - chat_redis
       - elasticsearch
