@@ -21,14 +21,14 @@ services:
   elasticsearch:
     image: elasticsearch
     ports:
-      - "9200:9200"
+      - "9200"
     networks:
       - back-tier
 
   auth:
     build: ./node_modules/grow-auth-service
     ports:
-      - "28000:5000"
+      - "5000"
     networks:
       - front-tier
       - back-tier
