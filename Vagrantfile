@@ -1,7 +1,8 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 
-  config.vm.network "public_network"
+  config.vm.network "private_network", ip: "192.168.13.37"
+  config.vm.network "forwarded_port", guest: 80, host: 8090
 
   # Install docker
   config.vm.provision :docker
@@ -26,8 +27,5 @@ Vagrant.configure(2) do |config|
   EOC
 
   # Compose grow chat
-  config.vm.provision "shell", name: "Setup Grow Chat", run: "always", inline: <<-EOC
-    docker-compose -f /vagrant/docker-compose.yml build
-    docker-compose -f /vagrant/docker-compose.yml up -d
-  EOC
+  config.vm.provision "shell", name: "Setup Grow Chat", run: "always", path: "provision.sh"
 end
